@@ -1,10 +1,12 @@
 package com.example.mojaaplikacija;
 
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +22,7 @@ public class Crtac extends View {
     private final Paint paint;
     private final List<Linija> linije;
 
+
     public Crtac(Context context) {
         super(context);
         paint = new Paint();
@@ -29,6 +32,27 @@ public class Crtac extends View {
         path = new Path();
         linija = new Linija();
         linije = new ArrayList<>();
+    }
+    public Crtac(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setStrokeWidth(15);
+        paint.setStyle(Paint.Style.STROKE);
+        path = new Path();
+        linija = new Linija();
+        linije = new ArrayList<>();
+    }
+    public Crtac(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setStrokeWidth(15);
+        paint.setStyle(Paint.Style.STROKE);
+        path = new Path();
+        linija = new Linija();
+        linije = new ArrayList<>();
+
     }
 
 

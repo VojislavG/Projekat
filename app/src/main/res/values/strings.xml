@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">MojaAplikacija</string>
     <string name="select_point">Select Point</string>
+    <string name="button">Button</string>
+    <string name="button1">Button</string>
+    <string name="select">Button</string>
+    <string name="delete">Button</string>
 </resources>
