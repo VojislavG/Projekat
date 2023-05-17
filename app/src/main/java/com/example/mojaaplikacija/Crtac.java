@@ -1,6 +1,7 @@
 package com.example.mojaaplikacija;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,9 @@ public class Crtac extends View {
     private final Paint paint;
     private final List<Linija> linije;
 
-
+    public List<Linija> getLinije(){
+        return linije;
+    }
     public Crtac(Context context) {
         super(context);
         paint = new Paint();
@@ -67,6 +71,25 @@ public class Crtac extends View {
 
         }
     }
+    public boolean isSelectedLine(float x, float y, Linija l){
+        float minX = Math.min(l.startX, l.endX);
+        float maxX = Math.max(l.startX, l.endX);
+        float minY = Math.min(l.startY, l.endY);
+        float maxY = Math.max(l.startY, l.endY);
+
+        return (x>= minX && x<= maxX) && (y >= minY && y <= maxY);
+        }
+
+    public Linija getSelectedLine(float x, float y){
+        for(Linija l: linije){
+            if(isSelectedLine(x,y,l)){
+                return l;
+            }
+        }
+        return null;
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         float x = event.getX();
@@ -78,6 +101,7 @@ public class Crtac extends View {
                 path.moveTo(x, y);
                 linija.setX(x);
                 linija.setY(y);
+
                 break;
             case MotionEvent.ACTION_MOVE:
                 path.lineTo(x, y);
@@ -99,6 +123,7 @@ public class Crtac extends View {
                 path.reset();
                 break;
         }
+
         invalidate();
         return true;
     }
@@ -108,7 +133,5 @@ public class Crtac extends View {
         float deltaY = y2 - y1;
         return (float) Math.toDegrees(Math.atan2(deltaY, deltaX));
     }
-
-
 
 }

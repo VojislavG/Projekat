@@ -36,6 +36,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/button4"
             android:layout_marginTop="0dp"
-            android:text="delete" />
+            android:text="next" />
     </RelativeLayout>
 </LinearLayout>

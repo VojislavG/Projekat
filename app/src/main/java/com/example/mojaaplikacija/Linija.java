@@ -111,6 +111,30 @@ public class Linija {
 
         canvas.drawLine(startX, startY, newEndX, newEndY, paint);
     }
+    public void drawRedLine(Canvas canvas, float startX, float startY, float endX, float endY) {
+        Paint paint = new Paint();
+        paint.setColor(Color.RED);
+        paint.setStrokeWidth(4.0f);
+
+        float length = (float) Math.sqrt(Math.pow((Math.abs(startX) - Math.abs(endX)), 2) + Math.pow((Math.abs(endY) - Math.abs(startY)), 2));
+        float newEndX = startX + length * (float) Math.cos(Math.toRadians(angle));
+        float newEndY = startY + length * (float) Math.sin(Math.toRadians(angle));
+
+        canvas.drawLine(startX, startY, newEndX, newEndY, paint);
+    }
+    public boolean contains(float x, float y) {
+        // Calculate the distance between the point (x, y) and the line
+        float distance = (float) Math.abs((endY - startY) * x - (endX - startX) * y + endX * startY - endY * startX)
+                / (float) Math.sqrt(Math.pow(endY - startY, 2) + Math.pow(endX - startX, 2));
+        float threshold = 10.0f;
+        return distance <= threshold;
+    }
+    public boolean selectedLine(float x, float y) {
+        float distance = (float) Math.abs((endY - startY) * x - (endX - startX) * y + endX * startY - endY * startX)
+                / (float) Math.sqrt(Math.pow(endY - startY, 2) + Math.pow(endX - startX, 2));
+        float threshold = 10.0f;
+        return distance <= threshold;
+    }
 
 
 }
