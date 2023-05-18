@@ -114,7 +114,7 @@ public class Linija {
     public void drawRedLine(Canvas canvas, float startX, float startY, float endX, float endY) {
         Paint paint = new Paint();
         paint.setColor(Color.RED);
-        paint.setStrokeWidth(4.0f);
+        paint.setStrokeWidth(9.0f);
 
         float length = (float) Math.sqrt(Math.pow((Math.abs(startX) - Math.abs(endX)), 2) + Math.pow((Math.abs(endY) - Math.abs(startY)), 2));
         float newEndX = startX + length * (float) Math.cos(Math.toRadians(angle));
@@ -129,12 +129,12 @@ public class Linija {
         float threshold = 10.0f;
         return distance <= threshold;
     }
-    public boolean selectedLine(float x, float y) {
-        float distance = (float) Math.abs((endY - startY) * x - (endX - startX) * y + endX * startY - endY * startX)
-                / (float) Math.sqrt(Math.pow(endY - startY, 2) + Math.pow(endX - startX, 2));
-        float threshold = 10.0f;
-        return distance <= threshold;
+    public boolean isSelectedLine(float x, float y, Linija l) {
+        // Check if the line is selected
+        return (x >= Math.min(l.getXstart(), l.endX) && x <= Math.max(l.getXstart(), l.endX))
+                && (y >= Math.min(l.getYstart(), l.endY) && y <= Math.max(l.getYstart(), l.endY));
     }
+
 
 
 }

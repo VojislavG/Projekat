@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:app="http://schemas.android.com/apk/res-auto"
-     xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,20 +8,33 @@
     android:orientation="vertical"
     tools:context="com.example.mojaaplikacija.MainActivity">
 
-    <com.example.mojaaplikacija.Crtac
-        android:id="@+id/drawing_view"
-        android:layout_weight="0.15"
+    <RelativeLayout
+        android:layout_weight="5"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_margin="8dp">
 
+        <com.example.mojaaplikacija.Crtac
+            android:id="@+id/drawing_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.example.mojaaplikacija.Crtac>
 
-    </com.example.mojaaplikacija.Crtac>
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="54dp"
+            android:layout_height="36dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/angle_left"
+            android:backgroundTint="#DD2B2B"
+            app:strokeColor="#E62E2E" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_weight="0.85"
-
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp">
 
         <Button
             android:id="@+id/button4"

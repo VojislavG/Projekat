@@ -20,9 +20,10 @@ import java.util.List;
 
 public class Crtac extends View {
     private final Path path;
+
     private Linija linija;
     private final Paint paint;
-    private final List<Linija> linije;
+    private  List<Linija> linije;
 
     public List<Linija> getLinije(){
         return linije;
@@ -60,6 +61,13 @@ public class Crtac extends View {
     }
 
 
+    public void setLinije(List<Linija> l) {
+        if (!l.isEmpty()) {
+            l.remove(l.size() - 1);
+        }
+        this.linije = l;
+        invalidate();
+    }
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -68,21 +76,17 @@ public class Crtac extends View {
             String  a = String.valueOf(linije.size());
             Log.v("TAG", String.valueOf(linije.size()));
             canvas.drawLine(linija.startX, linija.startY, linija.endX, linija.endY, paint);
-
         }
     }
-    public boolean isSelectedLine(float x, float y, Linija l){
-        float minX = Math.min(l.startX, l.endX);
-        float maxX = Math.max(l.startX, l.endX);
-        float minY = Math.min(l.startY, l.endY);
-        float maxY = Math.max(l.startY, l.endY);
-
-        return (x>= minX && x<= maxX) && (y >= minY && y <= maxY);
-        }
-
-    public Linija getSelectedLine(float x, float y){
-        for(Linija l: linije){
-            if(isSelectedLine(x,y,l)){
+    public boolean isSelectedLine(float x, float y, Linija l) {
+        // Check if the line is selected
+        return (x >= Math.min(l.getXstart(), l.endX) && x <= Math.max(l.getXstart(), l.endX))
+                && (y >= Math.min(l.getYstart(), l.endY) && y <= Math.max(l.getYstart(), l.endY));
+    }
+    public Linija getSelectedLine(float x, float y) {
+        // Find and return the selected line
+        for (Linija l : linije) {
+            if (isSelectedLine(x, y, l)) {
                 return l;
             }
         }
@@ -101,7 +105,6 @@ public class Crtac extends View {
                 path.moveTo(x, y);
                 linija.setX(x);
                 linija.setY(y);
-
                 break;
             case MotionEvent.ACTION_MOVE:
                 path.lineTo(x, y);
@@ -111,23 +114,19 @@ public class Crtac extends View {
             case MotionEvent.ACTION_UP:
                 linija.setXend(event.getX());
                 linija.setYend(event.getY());
-
                 if (linije.size() > 0) {
                     Linija prevLine = linije.get(linije.size() - 1);
                     float angle = calculateAngle(prevLine.getEndX(), prevLine.getEndY(), linija.getXstart(), linija.getYstart());
                     Log.v("Angle", String.valueOf(angle));
                     linija.setAngle(angle);
                 }
-
                 linije.add(linija);
                 path.reset();
                 break;
         }
-
         invalidate();
         return true;
     }
-
     private float calculateAngle(float x1, float y1, float x2, float y2) {
         float deltaX = x2 - x1;
         float deltaY = y2 - y1;
